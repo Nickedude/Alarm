@@ -1,5 +1,5 @@
 /*
- * main.c
+ * mainc
  * 
  * Copyright 2016 MrWicki <mrwicki@MrWicki2>
  * 
@@ -23,9 +23,22 @@
 
 #include "include/main.h"
 
+uint32_t Init (void)
+{
+	return InitIndicators();
+}
+
 int main(int argc, char **argv)
 {
-	
+	sensor ms1 = {1, "Teststation", MAGNET_1, PASSIVE, MAGNET, &ReadMagnetSensor};
+	Init();
+	//uint32_t returncode = Record10Sec();
+	//TestSensors();
+	while(1)
+	{
+		ReadMagnetSensor(MAGNET_1);
+		CheckSensors(ms1);
+	}
 	return 0;
 }
 

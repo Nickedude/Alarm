@@ -2,7 +2,12 @@
 #define SENSOR_H
 
 #include <stdint.h>
-#include "bcm2835.h"
+#include "bcm2835-1.5/src/bcm2835.h"
+#include "indicators.h"
+#include "alarm.h"
+
+//Define pin 12 (really GPIO pin 18) as magnet 1
+#define MAGNET_1 RPI_GPIO_P1_12
 
 //Different states of a sensor
 typedef enum 
@@ -20,6 +25,7 @@ typedef enum
 	TEMPERATURE	= 3,
 } sensorType;
 
+//Struct for a sensor
 typedef struct sensor_t
 {
 	uint32_t idnumber;				//ID number of sensor
@@ -33,4 +39,7 @@ typedef struct sensor_t
 //Function definitions
 void UpdateSensorStatus (sensor s);
 sensorStatus ReadMagnetSensor (sensor s);
+void CheckSensors (sensor s);
+void TestSensors (void);
+
 #endif
