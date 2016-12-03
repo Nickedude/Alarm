@@ -6,8 +6,7 @@
 #include "indicators.h"
 #include "alarm.h"
 
-//Define pin 12 (really GPIO pin 18) as magnet 1
-#define MAGNET_1 RPI_GPIO_P1_12
+#define MAGNET_1 25		//Magnet 1 is on GPIO pin 25
 
 //Different states of a sensor
 typedef enum 
@@ -40,6 +39,5 @@ typedef struct sensor_t
 void UpdateSensorStatus (sensor s);
 sensorStatus ReadMagnetSensor (sensor s);
 void CheckSensors (sensor s);
-void TestSensors (void);
 
 #endif

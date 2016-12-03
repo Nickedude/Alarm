@@ -5,11 +5,11 @@
 #include <stdio.h>
 #include <string.h>
 
-//Define pin 11 (really GPIO pin 17) to be the one used for sending the dots and dashes
-#define RED_LIGHT RPI_GPIO_P1_11
+#define RED_LIGHT 24	//The red indicator is on pin 24
+#define GREEN_LIGHT 10	//The green indicator is on pin 10
 
 int InitIndicators (void);
-void TriggerIndicators (void);
-void ResetIndicators (void);
+void IndicateArmed (void);
+void IndicateDisarmed (void);
 
 #endif

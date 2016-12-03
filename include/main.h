@@ -7,9 +7,11 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#include "bcm2835.h"	//Needed for GPIO support
 #include "camera.h"
 #include "indicators.h"
 #include "sensor.h"
 #include "alarm.h"
+#include "keypad.h"
 
 #endif

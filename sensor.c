@@ -42,18 +42,3 @@ sensorStatus ReadMagnetSensor (sensor s)
 	}
 	return PASSIVE;
 }
-
-
-//Test function
-void TestSensors (void)
-{
-	uint8_t level = bcm2835_gpio_lev(MAGNET_1);
-	if(level == HIGH)
-	{
-		ResetIndicators();
-	}
-	else if (level == LOW)
-	{
-		TriggerIndicators();
-	}
-}

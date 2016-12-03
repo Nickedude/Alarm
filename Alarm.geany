@@ -27,12 +27,14 @@ current_page=3
 FILE_NAME_0=107;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Falarm.c;0;4
 FILE_NAME_1=105;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Finclude%2Falarm.h;0;4
 FILE_NAME_2=107;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Fcamera.c;0;4
-FILE_NAME_3=764;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Fmain.c;0;4
-FILE_NAME_4=194;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Finclude%2Fmain.h;0;4
+FILE_NAME_3=854;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Fmain.c;0;4
+FILE_NAME_4=214;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Finclude%2Fmain.h;0;4
 FILE_NAME_5=623;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Fsensor.c;0;4
 FILE_NAME_6=134;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Finclude%2Fsensor.h;0;4
 FILE_NAME_7=299;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Findicators.c;0;4
 FILE_NAME_8=335;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Finclude%2Findicators.h;0;4
+FILE_NAME_9=18;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Fkeypad.c;0;4
+FILE_NAME_10=122;C;0;EUTF-8;1;1;0;%2Fhome%2Fpi%2FAlarm%2Finclude%2Fkeypad.h;0;4
 
 [VTE]
 last_dir=/home/pi
@@ -42,7 +44,7 @@ CFT_00_LB=_Compile
 CFT_00_CM=gcc -Wall -c "%f" -l bcm2835
 CFT_00_WD=
 CFT_01_LB=_Build
-CFT_01_CM=gcc -Wall -o "%e" "%f"  "camera.c" "indicators.c" "sensor.c" "alarm.c" -l bcm2835
+CFT_01_CM=gcc -Wall -o "%e" "%f"  "camera.c" "indicators.c" "sensor.c" "alarm.c" "keypad.c" -l bcm2835
 CFT_01_WD=
 filetypes=C;
 CFT_02_LB=Compile h-files
