@@ -23,52 +23,53 @@
 
 #include "include/main.h"
 
+//Initiate everything
 uint32_t Init (void)
 {
-	uint32_t r = 0;
-	r = bcm2835_init();
-	r &= keypadInit();
-	r = r & InitIndicators();
-	return r;
+	uint32_t r = 0;				//Variable for holding the result
+	r = bcm2835_init();			//Init GPIO library
+	r &= keypadInit();			//Init settings for keypad
+	r = r & InitIndicators();	//Init the indicators
+	InitSensors();				//Init the sensors
+	return r;					//Return the result
 }
 
+//Main menu
 void MainLoop (void) {
 	
-	uint8_t a [4] = {0,0,0,0};	//Replace by mallock somehow
-	uint32_t i;
-	uint8_t c;
-	uint8_t * ptr = &a[0];
+	uint32_t i;								//Variable for loops
+	uint8_t c;								//Variable for holding the input
+	uint8_t * ptr = (uint8_t *) malloc(4);	//Allocate 4 bytes this pointer can utilize
 	
-	c = readKey();			//Read input
-	bcm2835_delay(500);		//Wait a bit so we only read one char
+	c = readKey();							//Read input
+	bcm2835_delay(500);						//Wait a bit so we only read one char
 	
 	switch(c) {
-		case '1': 
-			printf("Please enter the code.\n");
-			ReadCode(ptr);
-			printf("hej\n");
-			c = ArmAlarm(ptr);								//If user picks 1, arm alarm
-			if(c)
+		case '1': 											//Arm the alarm
+			printf("Please enter the code.\n");				//Ask for the code
+			ReadCode(ptr);									//Read the input and save it
+			c = ArmAlarm(ptr);								//Try to arm the alarm with the code given
+			if(c)											//If one is returned the alarm was successfully armed
 				printf("Alarm is now armed! Press 2 to disarm\n");
-			else
+			else 											//Otherwise the alarm wasn't armed (wrong code)
 				printf("Wrong code, try again.\n");
 			break;
 			
-		case '2':
-			DisarmAlarm();									//If user picks 2, disarm alarm
+		case '2':											//If user picks 2, disarm alarm
+			DisarmAlarm();									//Disarm the alarm
 			printf("Alarm is now disarmed!\n");
 			break;
 			
 		case '3':											//If user picks 3, set a new code
 			printf("Please enter the new code!\n");
-			ReadCode(ptr);
+			ReadCode(ptr);									//Read the input
 			SetCode(ptr);									//Set new code
 			break;
 			
 		case '4':											//If user picks 4, print the code
 			ptr = GetCode();								//Get pointer to the code
 			for(i = 0; i < 4; i++) {						//Print each char
-				printf("%c",*(ptr+i));
+				printf("%c",*(ptr+i));						
 			}
 			printf("\n");
 			break;
@@ -82,33 +83,41 @@ void MainLoop (void) {
 			
 		default: 
 			break;
+			
+		free(ptr);											//Free the allocated space
 	}
 }
 
+void ArmedLoop (void) 
+{
+	while(1) 
+	{
+		CheckSensors();
+	}
+}
+	
+
 int main(int argc, char **argv)
 {
-	//sensor ms1 = {1, "Teststation", MAGNET_1, PASSIVE, MAGNET, &ReadMagnetSensor};
-	Init();
-	//uint32_t returncode = Record10Sec();
-	//TestSensors();
-	/*while(1)
-	{
-		ReadMagnetSensor(MAGNET_1);
-		CheckSensors(ms1);
-	}*/
-	
+	Init();	
 	IndicateDisarmed();
-	printf("What do you want to do? Press 9 for help.\n");
+	ResetTriggered();
 	while(1) {
-		if(IsArmed())
-			printf("Armed");
+		printf("What do you want to do? Press 9 for help.\n");
+		if(isTriggered()) {
+			printf("The alarm has been triggered!\n");
+		}
+		else if(IsArmed()) {
+			printf("Armed\n");
+			ArmedLoop();
+		}
 		else
 			MainLoop();
 	}
 	
-	bcm2835_gpio_fsel(25, BCM2835_GPIO_FSEL_INPT);
-	uint8_t t = bcm2835_gpio_lev(25);
-	printf("%d\n",t);
+	/*RaiseAlarm();
+	delay(400);
+	ResetTriggered();*/
 	return 0;
 	
 }

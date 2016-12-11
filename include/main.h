@@ -13,5 +13,6 @@
 #include "sensor.h"
 #include "alarm.h"
 #include "keypad.h"
+#include "sensor.h"
 
 #endif

@@ -20,8 +20,9 @@ uint8_t keys [4][3] = {
 	{'1','2','3'},
 	{'4','5','6'},
 	{'7','8','9'},
-	{'*','0','#'}};
-	
+	{'*','0','#'}
+};
+ 
 //Sets up the keypad IO pins
 uint8_t keypadInit () {
 	/*if(!bcm2835_init())											//Initialize the IO library

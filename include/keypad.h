@@ -4,8 +4,6 @@
 #include "bcm2835.h"	//Needed for GPIO support
 #include <stdio.h>
 
-#include "keypad.h"
-	
 //Sets up the keypad IO pins
 uint8_t keypadInit ();
 

@@ -6,7 +6,7 @@
 #include "indicators.h"
 #include "alarm.h"
 
-#define MAGNET_1 25		//Magnet 1 is on GPIO pin 25
+#define MAGNET_1 25			//Magnet 1 is on GPIO pin 25
 
 //Different states of a sensor
 typedef enum 
@@ -32,12 +32,12 @@ typedef struct sensor_t
 	RPiGPIOPin pin;					//The GPIO pin the sensor is connected to
 	sensorStatus status;			//Status of sensor
 	sensorType type;				//Type of the sensor
-	sensorStatus (*readStatus)();	//Function pointer to the readStatus function for this specific sensor
 } sensor;
 
 //Function definitions
-void UpdateSensorStatus (sensor s);
 sensorStatus ReadMagnetSensor (sensor s);
-void CheckSensors (sensor s);
+void CheckSensors (void);
+void InitSensors (void);
+void UpdateSensor (sensor * s);
 
 #endif

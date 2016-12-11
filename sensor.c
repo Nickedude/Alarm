@@ -1,44 +1,64 @@
 #include "include/sensor.h"
 
+//Variables
+uint32_t nrofsensors = 0;	//Holds the current number of sensors
+sensor sensors [10] = {};	//Keeps track of the plugged in sensors
+
 //Initialize the sensors
 void InitSensors (void)
 {
-	//Set the pins to be inputs
-	bcm2835_gpio_fsel(MAGNET_1, BCM2835_GPIO_FSEL_INPT);
+	bcm2835_gpio_fsel(MAGNET_1, BCM2835_GPIO_FSEL_INPT);	//Initiate GPIO pins
+	sensor mk1 = {1, "Test", MAGNET_1,PASSIVE,MAGNET};		//Create variable for magnet 1
+	sensors[nrofsensors++] = mk1;							//Add mk1 to the array of current sensors
+	mk1.status = ReadMagnetSensor(mk1);						//Update status of mk1
 }
 
-
-void CheckSensors (sensor s)
+//Checks all the sensors and raises the alarm if anyone of them is triggered
+void CheckSensors (void)
 {
-	if(s.status == TRIGGERED)
+	int i;
+	for(i = 0; i < nrofsensors; i++)			//Loop through all the sensors
 	{
-		RaiseAlarm();
-	}
-	else if (s.status == PASSIVE)
-	{
-		ResetAlarm();
+		UpdateSensor((sensor *) &sensors[i]);	//Updates sensor i
+		if(sensors[i].status == TRIGGERED)		//If sensor i is triggered
+		{
+			RaiseAlarm();						//Raise the alarm
+		}
+		else 									//If not, reset the alarm indicator
+		{
+			ResetAlarm();						//Reset the alarm indicator
+		}
 	}
 	return;
 }
 
-//Updates the status of the given sensor, no matter it's type
-void UpdateSensorStatus (sensor s)
+//Updates the status of a sensor by reading it's level
+void UpdateSensor (sensor * s) 
 {
-	s.status = (*s.readStatus)();
-	return;
+	if(s -> type == MAGNET)						//If it's a magnet
+	{
+		(*s).status = ReadMagnetSensor(*s);		//Update the status for a magnet sensor
+	}
+	else 										//If no valid typ of sensor is assigned ...
+	{
+		return; 								//Do nothing
+	}
 }
 
 //Returns the value of a given magnet sensor
 sensorStatus ReadMagnetSensor (sensor s)
 {
-	uint8_t level = bcm2835_gpio_lev(s.pin);
-	if(level == HIGH)
+	uint8_t level = bcm2835_gpio_lev(s.pin);		//Read the level of the pin
+	if(level == HIGH)								//If it's high ...
 	{
-		return PASSIVE;
+		return PASSIVE;								//Return passive status
 	}
-	else if (level == LOW)
+	else if (level == LOW)							//If it's low ...
 	{
-		return TRIGGERED;
+		return TRIGGERED;							//The contact has been breached, return triggered status
 	}
-	return PASSIVE;
+	else 
+	{
+		return PASSIVE;								//This will never happen, but return passive status as default
+	}
 }

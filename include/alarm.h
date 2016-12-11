@@ -10,5 +10,6 @@ void DisarmAlarm (void);
 void RaiseAlarm (void);
 void ResetAlarm (void);
 uint8_t IsArmed (void);
+uint8_t isTriggered (void);
 
 #endif
