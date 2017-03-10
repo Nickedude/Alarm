@@ -11,24 +11,27 @@ int InitIndicators (void)
 	return 1;
 }
 
-//Indicator for the alarm being triggered activare
+//Indicators for the alarm being armed
 void IndicateArmed (void) 
 {
 	bcm2835_gpio_write(RED_LIGHT, HIGH);
 	bcm2835_gpio_write(GREEN_LIGHT, LOW);
 }
 
+//Indicators for the alarm being disarmed
 void IndicateDisarmed (void) 
 {
 	bcm2835_gpio_write(RED_LIGHT, LOW);
 	bcm2835_gpio_write(GREEN_LIGHT, HIGH);
 }
 
+//Indicators for the alarm being triggered
 void IndicateTriggered (void)
 {
 	bcm2835_gpio_write(BUZZER, HIGH);
 }
 
+//Resets alarm after it's triggered
 void ResetTriggered (void)
 {
 	bcm2835_gpio_write(BUZZER, LOW);

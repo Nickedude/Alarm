@@ -28,14 +28,14 @@ uint8_t ArmAlarm (uint8_t * p) {
 		if(code[i] != *(p+i))		//Check that the code is OK
 			return 0;				//If it isn't return 0
 	}
-	status = status | 1;				//If it is, set armed to 1
+	status = status | 1;			//If it is, set armed to 1
 	IndicateArmed();				//Indicate that the alarm is armed
 	return 1;						//Return 1
 }
 
 //Disarms the alarm
 void DisarmAlarm (void) {
-	status = status & 0;				//Set the alarm status to unarmed
+	status = status & 0;			//Set the alarm status to unarmed
 	IndicateDisarmed();				//Change the indicators
 }	
 

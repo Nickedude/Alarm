@@ -25,10 +25,10 @@ uint8_t keys [4][3] = {
  
 //Sets up the keypad IO pins
 uint8_t keypadInit () {
-	/*if(!bcm2835_init())											//Initialize the IO library
+	/*if(!bcm2835_init())										//Initialize the IO library
 		return -1;												//If the initialisation fails, exit
 	*/
-	uint8_t i;														//Counter for the columns
+	uint8_t i;													//Counter for the columns
 	for(i = 0; i < nrofcolumns; i++) {
 		bcm2835_gpio_fsel(columns[i],BCM2835_GPIO_FSEL_OUTP);	//Set the columns as outputs
 		bcm2835_gpio_set(columns[i]);							//Set it high
@@ -43,8 +43,8 @@ uint8_t keypadInit () {
 
 //Reads the next key pressed and returns it. It's appropriate with a delay after this function is called.
 uint8_t readKey () {
-	uint8_t i;													//Counter for the columns
-	uint8_t j;													//Counter for the rows
+	uint8_t i;												//Counter for the columns
+	uint8_t j;												//Counter for the rows
 	while(1) {
 		for(i = 0; i < nrofcolumns; i++) {					//Loop over the columns
 			bcm2835_gpio_clr(columns[i]);					//Set this columns pin to low
