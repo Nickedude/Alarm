@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 
         ticks = time(NULL);
         snprintf(sendBuff, sizeof(sendBuff), "%.24s\r\n", ctime(&ticks));
+        snprintf(sendBuff, sizeof(sendBuff), "Hej jag heter Niklas");
         write(connfd, sendBuff, strlen(sendBuff)); 
 
         close(connfd);
