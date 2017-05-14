@@ -112,6 +112,7 @@ int main(int argc, char **argv)
 		}
 		else
 			MainLoop();
+		
 	}
 	
 	/*RaiseAlarm();

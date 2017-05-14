@@ -1,7 +1,7 @@
 #ifndef INDICATORS_H
 #define INDICATORS_H
 
-#include "bcm2835-1.5/src/bcm2835.h"	//Needed for GPIO support
+#include "bcm2835.h"	//Needed for GPIO support
 #include <stdio.h>
 #include <string.h>
 

@@ -50,6 +50,7 @@ uint8_t readKey () {
 			bcm2835_gpio_clr(columns[i]);					//Set this columns pin to low
 			for(j = 0; j < nrofrows; j++) {					//Loop over the rows
 				if(!bcm2835_gpio_lev(rows[j])) {			//Check if the signal for some row is low
+					while(!bcm2835_gpio_lev(rows[j])){};	//Wait until it's released
 					bcm2835_gpio_set(columns[i]);			//If so, set the column high again
 					return(keys[j][i]);						//and return the character
 				}

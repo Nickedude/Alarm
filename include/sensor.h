@@ -2,11 +2,12 @@
 #define SENSOR_H
 
 #include <stdint.h>
-#include "bcm2835-1.5/src/bcm2835.h"
+#include "bcm2835.h"
 #include "indicators.h"
 #include "alarm.h"
 
 #define MAGNET_1 25			//Magnet 1 is on GPIO pin 25
+#define IR_1 8				//IR 1 is on GPIO pin 8
 
 //Different states of a sensor
 typedef enum 
@@ -36,6 +37,7 @@ typedef struct sensor_t
 
 //Function definitions
 sensorStatus ReadMagnetSensor (sensor s);
+sensorStatus ReadIRSensor (sensor s);
 void CheckSensors (void);
 void InitSensors (void);
 void UpdateSensor (sensor * s);
